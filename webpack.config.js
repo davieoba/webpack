@@ -7,14 +7,34 @@ const config = () => {
       path: path.resolve(__dirname, 'build'), // absolute path
       filename: 'main.js',
     },
+    devServer: {
+      static: path.resolve(__dirname, 'build'),
+      compress: true,
+      port: 3000,
+    },
+    // We will ask webpack to generate a so-called source map for the bundle, which makes it possible to map errors that occur during the execution of the bundle to the corresponding part in the original source code
+    devtool: 'source-map',
     module: {
+      // transpiles the code from jsx into js
       rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-react'],
+            // will allow babel to transpile my code and make use of the latest features that are compatible with es5 standard.
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
+        },
+        /**
+         *   The job of the css loader is to load the CSS files and the job of the style loader is to generate and inject a style element that contains all of the styles of the application.
+         * 
+         With this configuration, the CSS definitions are included in the main.js file of the application.
+
+         If needed, the application's CSS can also be generated into its own separate file by using the mini-css-extract-plugin.
+         */
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
         },
       ],
     },

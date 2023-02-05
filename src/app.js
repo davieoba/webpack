@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import './index.css'
 
 // this is not ordinary js, this is JSX and webpack can only bundle js app, so I need a loader
 
@@ -14,7 +15,20 @@ import React from 'react'
  * options: The options property is used for specifying parameters for the loader, which configure its functionality.
  */
 const App = () => {
-  return <div>hello webpack</div>
+  const [counter, setCounter] = useState(0)
+  const [values, setValues] = useState([])
+
+  const handleClick = () => {
+    setCounter(counter + 1)
+    setValues(values.concat(counter))
+  }
+
+  return (
+    <div className='container'>
+      hello webpack {counter} clicks
+      <button onClick={handleClick}>press</button>
+    </div>
+  )
 }
 
 export default App
