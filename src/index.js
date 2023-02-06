@@ -14,5 +14,11 @@ import 'regenerator-runtime/runtime.js'
 //   console.log(`hello ${name}`)
 // }
 
+import PromisePolyfill from 'promise-polyfill'
+
+if (!window.Promise) {
+  window.Promise = PromisePolyfill
+}
+
 // App()
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
